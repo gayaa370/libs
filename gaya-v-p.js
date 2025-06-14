@@ -95,7 +95,7 @@ class gayaVP {
             font-size: 14px;
         }
 
-        .kdev-video-controls {
+        .gaya-v-c {
             display: flex;
         }
     `;
