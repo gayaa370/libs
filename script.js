@@ -31,16 +31,20 @@
 
 
     window.utils.getCookie = (cName) => {
-        const name = cName + "=";
-        const cDecoded = decodeURIComponent(document.cookie);
-        const cArr = cDecoded.split('; ');
-        let res;
+        try {
+            const name = cName + "=";
+            const cDecoded = decodeURIComponent(document.cookie);
+            const cArr = cDecoded.split('; ');
+            let res;
 
-        cArr.forEach(val => {
-            if (val.indexOf(name) === 0) res = val.substring(name.length);
-        });
+            cArr.forEach(val => {
+                if (val.indexOf(name) === 0) res = val.substring(name.length);
+            });
 
-        return res;
+            return res;
+        } catch (e) {
+            console.warn("Cookies unavailable:", e.message);
+        }
     };
 
     /* ===============================
@@ -85,7 +89,7 @@
             return true;
         };
 
-        if (tryClick()) return { cleanup: () => {} };
+        if (tryClick()) return { cleanup: () => { } };
 
         observer = new MutationObserver(() => tryClick());
         observer.observe(document.body, { childList: true, subtree: true });
@@ -118,7 +122,7 @@
             return false;
         };
 
-        if (tryClick()) return { cleanup: () => {} };
+        if (tryClick()) return { cleanup: () => { } };
 
         observer = new MutationObserver(() => tryClick());
         observer.observe(document.body, { childList: true, subtree: true });
